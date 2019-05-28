@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: demo-zuul
+
+server:
+  port: 9012
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+      prefer-ip-address: true
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+zuul:
+  routes:
+    demo-provide:
+      path: /provide2/**
+      serviceId: demo-provide2
+    demo-provide-3:
+      path: /provide3/**
+      url: http://localhost:9006/configure/
+  # 超时设置
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000

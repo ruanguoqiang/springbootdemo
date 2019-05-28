@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: demo-springbootadmin
+    profiles:
+        active:
+          -secure
+server:
+  port: 8763
+
+eureka:   #<1>
+  instance:
+    leaseRenewalIntervalInSeconds: 20
+    health-check-url-path: /actuator/health
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    registryFetchIntervalSeconds: 10
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8763}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+eureka:
+  instance:
+    metadata-map:
+      user.name: "user"         #These two are needed so that the server
+      user.password: "password"
+#spring.boot.admin.probed-endpoints=["health", "env", "metrics", "httptrace:trace", "threaddump:dump", "jolokia", "info", "logfile", "refresh", "flyway", "liquibase", "heapdump", "loggers", "auditevents", "logfile"]

@@ -1,0 +1,14 @@
+server:
+  port: 9009
+
+spring:
+  application:
+    name: demo-provide-aop
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+  instance:
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      prefer-ip-address: true
+

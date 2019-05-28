@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiangge.transaction.dao.AccountMapper">
+
+    <sql id="BASE_BALE">
+        account
+    </sql>
+
+    <sql id="BASE_COLUMN">
+       id,name,money
+    </sql>
+
+    <update id="update">
+        UPDATE account set money=#{money} WHERE id=#{id}
+    </update>
+
+    <update id="updateName">
+        UPDATE account set name=#{name} WHERE id=#{id}
+    </update>
+
+    <insert id="insert" parameterType="com.qiangge.transaction.entity.Account">
+        INSERT INTO
+        <include refid="BASE_BALE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            #{name, jdbcType=VARCHAR}, #{money},
+        </trim>
+
+    </insert>
+</mapper>

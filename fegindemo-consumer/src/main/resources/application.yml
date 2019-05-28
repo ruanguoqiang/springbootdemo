@@ -1,0 +1,42 @@
+server:
+  port: 8041
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+  instance:
+        instance-id: ${spring.cloud.client.ip-address}:${server.port}
+        prefer-ip-address: true
+spring:
+  application:
+    name: feign-consumer
+
+### Feign 配置
+feign:
+  # 开启断路器（熔断器）
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+
+
+
+
+
+
+
+
+
+

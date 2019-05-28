@@ -1,0 +1,31 @@
+server:
+  port: 9002
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+  instance:
+      instance-id: ${spring.cloud.client.ip-address}:${server.port}
+      prefer-ip-address: true
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8763
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        ["health", "env", "metrics", "httptrace:trace", "threaddump:dump", "jolokia", "info", "logfile", "refresh", "flyway", "liquibase", "heapdump", "loggers", "auditevents", "logfile"]
+  endpoint:
+    health:
+      show-details: always
+#spring:
+#  datasource:
+#     url: jdbc:mysql://${POSTGRES_HOST:39.104.170.221}:${POSTGRES_PORT:3306}/springcloud
+#     username: ${POSTGRES_USERNAME:root}
+#     password: ${POSTGRES_PASSWORD:root123}
+#     driver-class-name: com.mysql.jdbc.Driver

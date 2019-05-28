@@ -1,0 +1,21 @@
+server:
+  port: 9006
+
+spring:
+  application:
+    name: demo-provide3
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+
+my:
+   webserver:
+     name: abc
+     password: abc123
+     url: http://localhost
+     port: 7001
+
